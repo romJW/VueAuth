@@ -52,14 +52,18 @@ export default {
     AuthButton,
   },
   methods: {
+    getRndInteger(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
     async handleSubmit() {
       try {
         const response = await axios.post('https://629995ce6f8c03a978453425.mockapi.io/pizzas', {
           email: this.email,
         });
         console.log(response);
-        this.$store.commit('SetCode', 12345);
-        console.log(12345);
+        const randomNum = this.getRndInteger(10000,99999)
+        console.log(randomNum);
+        this.$store.commit('SetCode', randomNum);
         this.$router.push('/check');
       } catch (error) {
         console.log(error.response);

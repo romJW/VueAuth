@@ -79,13 +79,12 @@ export default {
       e.target?.nextSibling?.focus();
     },
     handleSubmit() {
-      if (
-        this.$store.getters.getPassword ===
-        +Object.values(this.code)
-          .map((el) => el.toString())
-          .join('')
-      )
+      if ( this.$store.getters.getPassword ===+Object.values(this.code).map((el) => el.toString()).join('')){
         this.$router.push('/personal');
+      }
+      else {
+        this.$router.push('/error');
+      }
     },
     cancel() {
       this.$router.push('/login');

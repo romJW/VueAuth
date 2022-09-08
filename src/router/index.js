@@ -27,6 +27,11 @@ const routes = [
     path: '/account',
     name: 'account',
     component: () => import('../views/Account')
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import('../views/Error')
   }
 ]
 
