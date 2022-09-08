@@ -1,11 +1,14 @@
 <template>
-  <button class="btn" :style="{ 'color': color, 'background-color': background, 'border-color':borderColor }">
+  <button class="btn" :style="{ 'color': color, 'background-color': background, 'border-color':borderColor }" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
 <script>
 export default {
   props: ['color', 'background', 'borderColor'],
+  methods:{
+    
+  }
 };
 </script>
 <style lang="scss" scoped>

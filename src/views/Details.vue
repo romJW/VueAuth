@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent>
       <div class="details__container">
         <p class="details__logo">Logo</p>
         <div class="details__steps">
@@ -83,10 +83,15 @@
           </div>
         </div>
         <div class="details__btns">
-          <AuthButton :color="btnTransparent.color" :background="btnTransparent.background"
+          <AuthButton
+            @click="getBack"
+            :color="btnTransparent.color"
+            :background="btnTransparent.background"
             >Вернуться</AuthButton
           >
-          <AuthButton :color="btn.color" :background="btn.background">Сохранить<SaveIcon/></AuthButton>
+          <AuthButton @click="handleSubmit" :color="btn.color" :background="btn.background"
+            >Сохранить<SaveIcon
+          /></AuthButton>
         </div>
       </div>
     </form>
@@ -170,28 +175,31 @@ export default {
     LeftArrow,
     CompletedIcon,
     QuestionIcon,
-    SaveIcon
+    SaveIcon,
   },
   methods: {
     async handleSubmit() {
       try {
-      const response = await axios.post('https://629995ce6f8c03a978453425.mockapi.io/pizzas', {
-        dateFrom: this.dateFrom,
-        dateTo: this.dateTo,
-        timeFrom: this.timeFrom,
-        timeTo:this.timeTo,
-        goal: this.goal,
-        comment:this.comment,
-        checkedEnter: this.checkedEnter,
-        checkedData: this.checkedData,
-        checkedRules: this.checkedRules,
-      });
-      console.log(response);
-      this.$router.push('/account');
-      
-    }catch(error){
-      console.log(error.response)
-    }},
+        const response = await axios.post('https://629995ce6f8c03a978453425.mockapi.io/pizzas', {
+          dateFrom: this.dateFrom,
+          dateTo: this.dateTo,
+          timeFrom: this.timeFrom,
+          timeTo: this.timeTo,
+          goal: this.goal,
+          comment: this.comment,
+          checkedEnter: this.checkedEnter,
+          checkedData: this.checkedData,
+          checkedRules: this.checkedRules,
+        });
+        console.log(response);
+        this.$router.push('/account');
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+    getBack() {
+      this.$router.push('/login');
+    },
   },
 };
 </script>

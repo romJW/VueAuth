@@ -1,42 +1,47 @@
 <template>
   <div class="logcheck">
-    <form @submit.prevent="handleSubmit">
-    <div class="logcheck__container">
-      <p class="logcheck__logo">Logo</p>
-      <div class="logcheck__entrance">
-        <h2 class="logcheck__header">Андрій Андрійович</h2>
-        <p class="logcheck__explain">
-          На ваше электронное письмо <br />
-          отправляется одноразовый код.
-        </p>
-        <p class="logcheck__code">Код подтверждения</p>
-        <div class="logcheck__codeinput">
-          <CodeInput v-model="code.first" />
-          <span class="dash"></span>
-          <CodeInput v-model="code.second" />
-          <span class="dash"></span>
-          <CodeInput v-model="code.third" />
-          <span class="dash"></span>
-          <CodeInput v-model="code.fourth" />
-          <span class="dash"></span>
-          <CodeInput v-model="code.fifth" />
-        </div>
-        <div class="logcheck__btns">
-          <AuthButton :color="btnTransparent.color" :background="btnTransparent.background"
-            >Забыли пароль</AuthButton
-          >
+    <form @submit.prevent>
+      <div class="logcheck__container">
+        <p class="logcheck__logo">Logo</p>
+        <div class="logcheck__entrance">
+          <h2 class="logcheck__header">Андрій Андрійович</h2>
+          <p class="logcheck__explain">
+            На ваше электронное письмо <br />
+            отправляется одноразовый код.
+          </p>
+          <p class="logcheck__code">Код подтверждения</p>
+          <div class="logcheck__codeinput">
+            <CodeInput v-model="code.first" />
+            <span class="dash"></span>
+            <CodeInput v-model="code.second" />
+            <span class="dash"></span>
+            <CodeInput v-model="code.third" />
+            <span class="dash"></span>
+            <CodeInput v-model="code.fourth" />
+            <span class="dash"></span>
+            <CodeInput v-model="code.fifth" />
+          </div>
+          <div class="logcheck__btns">
+            <AuthButton
+              @click="cancel"
+              :color="btnTransparent.color"
+              :background="btnTransparent.background"
+              >Отменить</AuthButton
+            >
 
-          <AuthButton :color="btn.color" :background="btn.background">Подтвердить</AuthButton>
+            <AuthButton @click="handleSubmit" :color="btn.color" :background="btn.background"
+              >Подтвердить</AuthButton
+            >
+          </div>
         </div>
       </div>
-    </div>
-</form>
+    </form>
   </div>
 </template>
 <script>
 import CodeInput from '../components/CodeInput.vue';
 import AuthButton from '../components/AuthButton.vue';
-import axios from 'axios'
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -73,9 +78,18 @@ export default {
     next(e) {
       e.target?.nextSibling?.focus();
     },
-    handleSubmit(){
-        if (this.$store.getters.getPassword === +(Object.values(this.code).map((el)=>el.toString()).join(''))) this.$router.push('/personal');
-    }
+    handleSubmit() {
+      if (
+        this.$store.getters.getPassword ===
+        +Object.values(this.code)
+          .map((el) => el.toString())
+          .join('')
+      )
+        this.$router.push('/personal');
+    },
+    cancel() {
+      this.$router.push('/login');
+    },
   },
 };
 </script>
@@ -119,7 +133,7 @@ export default {
     font-size: 14px;
     line-height: 24px;
 
-    margin-bottom:12px;
+    margin-bottom: 12px;
   }
   &__codeinput {
     margin-bottom: 32px;

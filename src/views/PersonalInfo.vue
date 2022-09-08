@@ -1,6 +1,6 @@
 <template>
   <div class="personal">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent>
       <div class="personal__container">
         <p class="personal__logo">Logo</p>
         <div class="personal__steps">
@@ -60,11 +60,16 @@
           </div>
         </div>
         <div class="personal__btns">
-            <AuthButton :color="btnTransparent.color" :background="btnTransparent.background"
-              ><leftArrow/>Обратно</AuthButton
-            >
-            <AuthButton :color="btn.color" :background="btn.background">Далее <rightArrow/></AuthButton>
-          </div>
+          <AuthButton
+            @click="getBack"
+            :color="btnTransparent.color"
+            :background="btnTransparent.background"
+            ><leftArrow />Обратно</AuthButton
+          >
+          <AuthButton @click="handleSubmit" :color="btn.color" :background="btn.background"
+            >Далее <rightArrow
+          /></AuthButton>
+        </div>
       </div>
     </form>
   </div>
@@ -82,13 +87,12 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      user:{
-        name:"",
-        surname:"",
-        doc:null,
-        mobile:null,
-        car:null
-
+      user: {
+        name: '',
+        surname: '',
+        doc: null,
+        mobile: null,
+        car: null,
       },
       btnTransparent: {
         color: '#929BAA',
@@ -104,11 +108,11 @@ export default {
         doc: 'Номер удостоверения личности',
         mobile: 'Номер мобильного телефона',
       },
-      options:[
-        {value:1, name:"легковая"},
-        {value:2, name:"грузовая"},
+      options: [
+        { value: 1, name: 'легковая' },
+        { value: 2, name: 'грузовая' },
       ],
-      select:''
+      select: '',
     };
   },
   components: {
@@ -118,26 +122,29 @@ export default {
     CarIcon,
     CameraIcon,
     RightArrow,
-    LeftArrow
+    LeftArrow,
   },
   methods: {
     async handleSubmit() {
-      try{const response = await axios.post('https://629995ce6f8c03a978453425.mockapi.io/pizzas', {
-        name:this.user.name,
-        surname:this.user.surname,
-        doc:this.user.doc,
-        mobile:this.user.mobile,
-        car:this.user.car,
-        select:this.select,
-      });
-      console.log(response);
-      this.$router.push('/details');
-    }
-    catch(error){
-      console.log(error.response);
-    }
-  },}
-      
+      try {
+        const response = await axios.post('https://629995ce6f8c03a978453425.mockapi.io/pizzas', {
+          name: this.user.name,
+          surname: this.user.surname,
+          doc: this.user.doc,
+          mobile: this.user.mobile,
+          car: this.user.car,
+          select: this.select,
+        });
+        console.log(response);
+        this.$router.push('/details');
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+    getBack() {
+      this.$router.push('/login');
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -169,7 +176,7 @@ export default {
   &__step-text {
     display: flex;
     gap: 34px;
-    margin-bottom:32px;
+    margin-bottom: 32px;
   }
 
   &__circle {
@@ -179,7 +186,7 @@ export default {
     width: 48px;
     height: 48px;
     border-radius: 9999px;
-    border: 1px solid #CFD3DE;
+    border: 1px solid #cfd3de;
   }
 
   &__step-info {
@@ -197,28 +204,28 @@ export default {
       0px 0.598509px 1.5px rgba(56, 69, 93, 0.0403893), 0px 0.249053px 1px rgba(56, 69, 93, 0.03);
     border-radius: 4px;
     padding: 16px;
-    margin-bottom:32px;
+    margin-bottom: 32px;
   }
 
   &__inputs {
     display: flex;
     gap: 16px;
-    margin-bottom:32px;
+    margin-bottom: 32px;
   }
 
   &__data {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:16px;
+    gap: 16px;
   }
 
   &__input {
   }
 
   &__contacts {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:16px;
+    gap: 16px;
   }
 
   &__image-upload {

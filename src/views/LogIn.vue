@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent>
       <div class="login__container">
         <p class="login__logo">Logo</p>
         <div class="login__entrance">
@@ -19,7 +19,9 @@
             <AuthButton :color="btnTransparent.color" :background="btnTransparent.background"
               >Забыли пароль</AuthButton
             >
-            <AuthButton :color="btn.color" :background="btn.background">Подать заявку</AuthButton>
+            <AuthButton @click="handleSubmit" :color="btn.color" :background="btn.background"
+              >Подать заявку</AuthButton
+            >
           </div>
         </div>
       </div>
