@@ -1,0 +1,12 @@
+@import url('./normalize.scss');
+
+.activeStep{
+    color:#409FFF;
+    border: 3px solid #409FFF!important;
+}
+.activeStepInfo{
+    color:#409FFF;
+}
+.fullyActiveStep{
+    background-color:#7FBFFF;
+}
